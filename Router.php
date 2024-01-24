@@ -67,7 +67,7 @@ class Router
         // Obtenemos el contenido del búfer y lo limpiamos
         $contenido = ob_get_clean();
 
-        // Incluimos el layout, que probablemente imprimirá $contenido en algún lugar
+        // Incluimos el layout
         include_once __DIR__ . '/views/layout.php';
     }
 }

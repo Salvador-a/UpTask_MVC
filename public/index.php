@@ -8,8 +8,10 @@ $router = new Router();
 
 // Login
 $router->get('/', [LoginController::class, 'login']);
- $router->post('/', [LoginController::class, 'login']);
- $router->get('/', [LoginController::class, 'logout']);
+$router->post('/', [LoginController::class, 'login']);
+$router->get('/logout', [LoginController::class, 'logout']);
+
+
 
 // Crear Cuenta
  $router->get('/crear', [LoginController::class, 'crear']);
