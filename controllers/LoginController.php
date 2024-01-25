@@ -46,15 +46,13 @@ class LoginController {
      }
 
      public static function olvide(Router $router) {
-         
-
          // Verifica si la solicitud HTTP es de tipo POST
          if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-             // Aquí iría el código para manejar la creación de cuentas
+           
        }
 
        //Render a la vista
-       $router->render('auth/crear',[
+       $router->render('auth/olvide',[
         'titulo' => 'Olvide Contraseña'
      ]);
 
@@ -66,7 +64,7 @@ class LoginController {
 
          // Verifica si la solicitud HTTP es de tipo POST
          if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-             // Aquí iría el código para manejar la creación de cuentas
+             
        }
      }
 
