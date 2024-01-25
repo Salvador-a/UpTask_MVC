@@ -75,14 +75,17 @@ class LoginController {
      }
 
      public static function mensaje(Router $router) {
-            $router->render('auth/mensaje',[
+            
+        $router->render('auth/mensaje',[
                 'titulo' => 'Cuensta Creada Exitosamente'
-             ]);
+            ]);
      }
 
-     public static function confirmar() {
-         // Imprime un mensaje para indicar que estamos en el método de creación de cuentas
-         echo "Desde confirmar";
+     public static function confirmar(Router $router) {
+         
+        $router->render('auth/confirmar',[
+            'titulo' => 'Confirmar tu Cuenta UpTask'
+        ]);
 
      }
 }
