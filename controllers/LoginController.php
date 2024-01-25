@@ -58,20 +58,26 @@ class LoginController {
 
      }
 
-     public static function restablecer() {
-         // Imprime un mensaje para indicar que estamos en el método de creación de cuentas
-         echo "Desde Restablecer";
+     public static function restablecer(Router $router) {
+         
 
          // Verifica si la solicitud HTTP es de tipo POST
          if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
              
-       }
+            }
+        
+            //Render a la vista
+            $router->render('auth/restablecer',[
+                'titulo' => 'Restablecer Contraseña'
+             ]);
+
      }
 
-     public static function mensaje() {
-         // Imprime un mensaje para indicar que estamos en el método de creación de cuentas
-         echo "Desde mensaje";
-
+     public static function mensaje(Router $router) {
+            $router->render('auth/mensaje',[
+                'titulo' => 'Cuensta Creada Exitosamente'
+             ]);
      }
 
      public static function confirmar() {
