@@ -45,14 +45,19 @@ class LoginController {
          ]);
      }
 
-     public static function olvide() {
-         // Imprime un mensaje para indicar que estamos en el método de creación de cuentas
-         echo "Desde olvide";
+     public static function olvide(Router $router) {
+         
 
          // Verifica si la solicitud HTTP es de tipo POST
          if ($_SERVER['REQUEST_METHOD'] === 'POST') {
              // Aquí iría el código para manejar la creación de cuentas
        }
+
+       //Render a la vista
+       $router->render('auth/crear',[
+        'titulo' => 'Olvide Contraseña'
+     ]);
+
      }
 
      public static function restablecer() {
