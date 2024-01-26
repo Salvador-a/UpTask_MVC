@@ -2,7 +2,7 @@
 
 namespace Controllers;
 
-// use Model\Usuario;
+use Model\Usuario;
 use MVC\Router;
 
 class LoginController {
@@ -33,15 +33,52 @@ class LoginController {
 
      // Método estático para manejar la creación de cuentas
      public static function crear(Router $router) {
+
+         $alertas = [];
+         // Instanciamos un nuevo usuario
+        $usuario = new Usuario;
          
 
          // Verifica si la solicitud HTTP es de tipo POST
          if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            
+            $usuario->sincronizar($_POST);
+            $alertas = $usuario->validarNuevasCuentas();
+
+            $exixteUsuario = Usuario::where('email', $usuario->email);
+            
+            if(empty($alertas)) {
+                if ($exixteUsuario) {
+                    Usuario::setAlerta('error', 'El usuario ya existe');
+                    $alertas = Usuario::getAlertas();
+                }else {
+                    // Hashear el password
+                    $usuario->hashPassword();
+
+                    // Eliminar el password 2
+                    unset($usuario->password2);
+
+                    // Generar un token
+                    $usuario->crearToken();
+
+                    //Crear un Nuevo Usuario
+                    $resultado = $usuario->guardar();
+
+                    if ($resultado) {
+                        // Redireccionar al usuario
+                        header('Location: /mensaje');
+                    }
+
+                }
+            }
 
          }
+
          //Render a la vista
          $router->render('auth/crear',[
-            'titulo' => 'Crear Cuenta'
+            'titulo' => 'Crear Cuenta',
+            'usuario' => $usuario,
+            'alertas' => $alertas
          ]);
      }
 
