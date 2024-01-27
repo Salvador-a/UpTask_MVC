@@ -1,12 +1,10 @@
-<?php
+<?php 
 
 namespace Classes;
 
 use PHPMailer\PHPMailer\PHPMailer;
 
 class Email {
-    //constructor
-
     protected $email;
     protected $nombre;
     protected $token;
@@ -16,26 +14,24 @@ class Email {
         $this->email = $email;
         $this->nombre = $nombre;
         $this->token = $token;
-        
+
     }
 
     public function enviarConfirmacion() {
 
-        // Crear el objeto de email
         $mail = new PHPMailer();
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
+        $mail->Port       = 587;
         $mail->Username   = 'pruebasphpmvc@gmail.com';
         $mail->Password   = 'oqkd zycw jyja kbf';
+        // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port       = 587;
 
         $mail->setFrom('pruebasphpmvc@gmail.com');
-       
         $mail->addAddress($this->email);
-        $mail->Subject = 'Confirma tu cuenta';
+        $mail->Subject = 'Confirma tu Cuenta';
 
 
         // Set HTML
@@ -50,8 +46,7 @@ class Email {
         $contenido .= '</html>';
 
         $mail->Body = $contenido;
-         
-         $mail->Body = $contenido;
+
 
          //Enviar el mail
          if ($this->email) {
