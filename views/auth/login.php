@@ -2,7 +2,7 @@
 <?php include_once __DIR__ .'/../templates/nombre-sitio.php' ?>
 
     <div class="contenedor-sm">
-        <p class="descripcion-paguina">Iniciar Seción</p>
+        <p class="descripcion-paguina">Iniciar Seción </p>
 
 
         <form class="formulario" method="POST" action="/" >

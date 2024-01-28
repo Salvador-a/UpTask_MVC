@@ -18,20 +18,19 @@ class Email {
     }
 
     public function enviarConfirmacion() {
-
+        // Crear el objeto de email
         $mail = new PHPMailer();
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Port       = 587;
         $mail->Username   = 'pruebasphpmvc@gmail.com';
-        $mail->Password   = 'oqkd zycw jyja kbf';
-        // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-
+        $mail->Password   = 'oizc xlcs tnlt lvkh';  
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port       = 587;
 
         $mail->setFrom('pruebasphpmvc@gmail.com');
         $mail->addAddress($this->email);
-        $mail->Subject = 'Confirma tu Cuenta';
+        $mail->Subject = 'Confirma tu cuenta';
 
 
         // Set HTML
@@ -49,9 +48,7 @@ class Email {
 
 
          //Enviar el mail
-         if ($this->email) {
-            $mail->send();
-        }
+         $mail->send();
 
     }
 
