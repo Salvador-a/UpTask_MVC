@@ -97,32 +97,30 @@ class LoginController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $usrio = new Usuario($_POST);
             $alertas = $usrio->validarEmail();
-        }
 
-        if (empty($alertas)) {
-            // Buscar el usuario
-            $usuario = Usuario::where('email', $usrio->email);
+            if (empty($alertas)) {
+                // Buscar el usuario
+                $usuario = Usuario::where('email', $usrio->email);
 
-            if ($usuario && $usuario->confirmado) {
-                
-                // Generar un nuevo token
+                if ($usuario && $usuario->confirmado) {
 
-                // Actualizar el email
+                    // Generar un nuevo token
+                    $usuario->crearToken();
+                    unset($usuario->password2);
 
-                // Enviar un correo electrónico
+                    // Actualizar el email
+                    $usuario->guardar();
 
-                // Imprimir alerta
+                    // Enviar un correo electrónico
 
-                
-                
-
-            } else {
-                Usuario::setAlerta('error', 'El usuario no existe o no esta confirmado');
-                $alertas = Usuario::getAlertas();
+                    // Imprimir alerta
+                    Usuario::setAlerta('exito', 'Hemos enviado las intrucciones a tu correo electrónico');
+                } else {
+                    Usuario::setAlerta('error', 'El usuario no existe o no esta confirmado');
+                }
             }
-
-            
         }
+        $alertas = Usuario::getAlertas();
 
         //Render a la vista
         $router->render('auth/olvide', [
