@@ -112,6 +112,10 @@ class LoginController
                     $usuario->guardar();
 
                     // Enviar un correo electrónico
+                    $email = new Email($usuario->email, $usuario->nombre, $usuario->token);
+                    $email->enviarInstrucciones();
+
+                    
 
                     // Imprimir alerta
                     Usuario::setAlerta('exito', 'Hemos enviado las intrucciones a tu correo electrónico');
