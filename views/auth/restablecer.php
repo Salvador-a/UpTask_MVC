@@ -9,7 +9,7 @@
         <?php if ($mostrar) { ?>
 
 
-        <form class="formulario" method="POST" action="/restablecer" >
+        <form class="formulario" method="POST" >
            
 
             <div class="campo">

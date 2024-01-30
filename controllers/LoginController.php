@@ -95,12 +95,12 @@ class LoginController
 
         // Verifica si la solicitud HTTP es de tipo POST
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $usrio = new Usuario($_POST);
-            $alertas = $usrio->validarEmail();
+            $usuario = new Usuario($_POST);
+            $alertas = $usuario->validarEmail();
 
             if (empty($alertas)) {
                 // Buscar el usuario
-                $usuario = Usuario::where('email', $usrio->email);
+                $usuario = Usuario::where('email', $usuario->email);
 
                 if ($usuario && $usuario->confirmado) {
 
@@ -150,6 +150,19 @@ class LoginController
 
         // Verifica si la solicitud HTTP es de tipo POST
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            // Asignar el nuevo password
+            $usuario->password = s($_POST['password']);
+
+            // Validar el password
+
+            $alertas = $usuario->validarPassword();
+
+            if (empty($alertas)) {
+                // Hashear el password
+                debuguear($usuario);
+            }
+
         }
 
         $alertas = Usuario::getAlertas();
@@ -180,19 +193,19 @@ class LoginController
         }
 
         // Econtra al usuario con el token
-        $usrio = Usuario::where('token', $token);
+        $usuario = Usuario::where('token', $token);
 
-        if (empty($usrio)) {
+        if (empty($usuario)) {
             // No se encontro el usuario con el token
             Usuario::setAlerta('error', 'Token no válido');
         } else {
             // Confirmar la cuenta
-            $usrio->confirmado = 1;
-            $usrio->token = '';
-            unset($usrio->password2);
+            $usuario->confirmado = 1;
+            $usuario->token = '';
+            unset($usuario->password2);
 
             // Guardar en la BD
-            $usrio->guardar();
+            $usuario->guardar();
 
             Usuario::setAlerta('exito', 'Cuenta confirmada correctamente');
         }
