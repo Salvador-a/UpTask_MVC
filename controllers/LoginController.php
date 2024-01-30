@@ -100,6 +100,27 @@ class LoginController
         }
 
         if (empty($alertas)) {
+            // Buscar el usuario
+            $usuario = Usuario::where('email', $usrio->email);
+
+            if ($usuario && $usuario->confirmado) {
+                
+                // Generar un nuevo token
+
+                // Actualizar el email
+
+                // Enviar un correo electrónico
+
+                // Imprimir alerta
+
+                
+                
+
+            } else {
+                Usuario::setAlerta('error', 'El usuario no existe o no esta confirmado');
+                $alertas = Usuario::getAlertas();
+            }
+
             
         }
 
