@@ -9,18 +9,26 @@ use MVC\Router;
 class LoginController
 {
     // Método estático para manejar el inicio de sesión
-    public static function login(Router $router)
-    {
-        // Imprime un mensaje para indicar que estamos en el método de inicio de sesión
+    public static function login(Router $router) {
 
+        $alertas = [];
 
         // Verifica si la solicitud HTTP es de tipo POST
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $auth = new Usuario($_POST);
+            
+            $alertas = $auth->validarLogin();
+
+            if(empty($alertas)) {
+                // Verificar si el usuario existe
+                
+            }
         }
 
         // Render a la vista
         $router->render('auth/login', [
-            'titulo' => 'Iniciar Sesión'
+            'titulo' => 'Iniciar Sesión',
+            'alertas' => $alertas
 
         ]);
     }
@@ -160,7 +168,20 @@ class LoginController
 
             if (empty($alertas)) {
                 // Hashear el password
-                debuguear($usuario);
+                $usuario->hashPassword();
+                
+                // Eliminar el Token
+                $usuario->token = '';
+
+                // Guardar el usuario en la BD
+                $resultado = $usuario->guardar();
+
+                // Redireccionar
+                if ($resultado) {
+                    header('Location: /');
+                }
+
+                
             }
 
         }
