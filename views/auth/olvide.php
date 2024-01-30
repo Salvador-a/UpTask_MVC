@@ -4,8 +4,10 @@
     <div class="contenedor-sm">
         <p class="descripcion-paguina">Recupera tu Accesos a UpTask</p>
 
+        <?php include_once __DIR__ .'/../templates/alertas.php' ?>
 
-        <form class="formulario" method="POST" action="/olvide" >
+
+        <form class="formulario" method="POST" action="/olvide" novalidate>
             
 
             <div class="campo">
