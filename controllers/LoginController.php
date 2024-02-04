@@ -55,11 +55,13 @@ class LoginController
     }
 
     // // Método estático para manejar el cierre de sesión
-    public static function logout()
-    {
-        // Imprime un mensaje para indicar que estamos en el método de cierre de sesión
-        echo "Desde login";
-        // Aquí iría el código para manejar el cierre de sesión
+    public static function logout() {
+
+        session_start();
+
+        $_SESSION = [];
+
+        header('Location: /');
     }
 
     // Método estático para manejar la creación de cuentas
