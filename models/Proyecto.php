@@ -1,13 +1,14 @@
 <?php
 
-namespace Proyecto;
+namespace Model;
 
 use Model\ActiveRecord;
 
 class Proyecto extends ActiveRecord {
 
    protected static $tabla = 'proyectos';
-    protected static $columnasDB = ['id', 'proyecto', 'url',  'propuedatarioId'];
+   protected static $columnasDB = ['id', 'proyecto', 'url', 'propietarioId']; // Corrige el nombre de la columna
+
 
     // Declarar visibilidad
     public $id;
@@ -20,9 +21,16 @@ class Proyecto extends ActiveRecord {
         $this->id = $args['id'] ?? null;
         $this->proyecto = $args['proyecto'] ?? '';
         $this->url = $args['url'] ?? '';
-        $this->propietarioId = $args['propietarioId'] ?? '';
+        $this->propietarioId = $args['propietarioId'] ?? null;
     }
 
-    
+    public function validarProyecto() {
+        if(!$this->proyecto) {
+            self::$alertas['error'] [] = "El nombre del proyecto es obligatorio";
+        }
+        return self::$alertas;
+    }
+
+
 
 }
