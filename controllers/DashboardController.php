@@ -54,12 +54,8 @@ class dashboardController {
                $proyecto->guardar();  
                
                // Redireccionar al usuario
-                header('Location: /proyecto?url=' . $proyecto->url);
-           }
-
-
-           
-            
+                header('Location: /proyecto?id=' . $proyecto->url);
+           } 
             
         }
 

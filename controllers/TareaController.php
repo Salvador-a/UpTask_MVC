@@ -2,8 +2,11 @@
 
 namespace Controllers;
 
+
+
 class TareaController {
     public static function index() {
+
         echo "Desde el Controlador de Tareas";
     }
 

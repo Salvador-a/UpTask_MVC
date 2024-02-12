@@ -7,7 +7,7 @@ use Model\ActiveRecord;
 class Proyecto extends ActiveRecord {
 
    protected static $tabla = 'proyectos';
-   protected static $columnasDB = ['id', 'proyecto', 'url', 'propietarioId']; // Corrige el nombre de la columna
+   protected static $columnasDB = ['id', 'proyecto', 'url', 'propietarioId'];
 
 
     // Declarar visibilidad
