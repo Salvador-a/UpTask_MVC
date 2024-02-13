@@ -19,19 +19,20 @@ class TareaController {
 
             $proyecto = Proyecto::where('url', $proyectoId); 
 
-            if(!$proyecto || $proyecto->propietarioId !== $_SESSION['id'])  {
+            if(!$proyecto || $proyecto->propietarioId !== $_SESSION['id']) {
                 $respuesta = [
                     'tipo' => 'error',
                     'mensaje' => 'Hubo un Error al agregar la tarea'
                 ];
                 echo json_encode($respuesta);
-            } else {
-                $respuesta = [
-                    'tipo' => 'exito',
-                    'mensaje' => 'Tarea agregada correctamente',
-                ];
-                echo json_encode($respuesta);
+                return;
             }
+
+             // Todo bien, instanciar y crear la tarea
+             $tarea = new Tarea($_POST);
+             $tarea->proyectoId = $proyecto->id;
+             $resultado = $tarea->guardar();
+             echo json_encode($resultado);
         }
     }
 
