@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Model\Proyecto;
+use Model\Tarea;
 
 class TareaController {
     public static function index() {
@@ -32,7 +33,7 @@ class TareaController {
              $tarea = new Tarea($_POST);
              $tarea->proyectoId = $proyecto->id;
              $resultado = $tarea->guardar();
-             echo json_encode($resultado);
+             echo json_encode($tarea);
         }
     }
 
