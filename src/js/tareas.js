@@ -113,7 +113,13 @@
             const resultado = await respuesta.json();
             console.log(resultado);
 
-            
+             // Mostrar Alerta de error
+             mostrarAlerta(
+                resultado.mensaje, 
+                resultado.tipo, 
+                document.querySelector('.formulario legend')
+            );
+                        
             
             
         } catch (error) {
@@ -123,9 +129,9 @@
     }
 
     function obtenerProyecto() {
-        const proyectoParams = new URLSearchParams(window.location.search); 
-        const proyecto = Object.fromEntries(proyectoParams.entries()); 
-        return proyecto.id;
+        const proyectoParams = new URLSearchParams(window.location.search);
+        const proyecto = Object.fromEntries(proyectoParams.entries());
+        return proyecto.url;
     }
 
 })();
