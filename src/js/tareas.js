@@ -1,6 +1,7 @@
 (function(){
 
     obtenerTareas();
+    let tareas = [];
 
     // Boton para mostrar el modal de Agregar Tarea
     const nuevaTareaBtn = document.querySelector('#agregar-tarea');
@@ -14,8 +15,8 @@
             const respuesta = await fetch(url);
             const resultado = await respuesta.json();
 
-            const { tareas } = resultado;
-            mostrarTareas(tareas); 
+            tareas = resultado.tareas;
+            mostrarTareas(); 
 
         } catch (error) {
             console.log(error);
@@ -23,8 +24,10 @@
 
     }
 
-    function mostrarTareas(tareas) {
-        
+    function mostrarTareas() {
+
+        limpiarTareas();
+     
         if(tareas.length === 0) {
             const contenedorTareas = document.querySelector('#listado-tareas');
 
@@ -198,6 +201,18 @@
                 setTimeout(() => {
                     modal.remove();
                 }, 2000);
+
+                // Agregar el objeto de tarea ala global de tareas
+                const tareaObj = {
+                    id: String(resultado.id),
+                    nombre: tarea,
+                    estado: 0,
+                    proyectoId: resultado.proyectoId
+                } 
+
+                tareas = [...tareas, tareaObj];
+                mostrarTareas();
+
             }
                         
             
@@ -212,6 +227,14 @@
         const proyectoParams = new URLSearchParams(window.location.search);
         const proyecto = Object.fromEntries(proyectoParams.entries());
         return proyecto.url;
+    }
+
+    function limpiarTareas() {
+        const listadoTareas = document.querySelector('#listado-tareas');
+        
+        while(listadoTareas.firstChild) {
+            listadoTareas.removeChild(listadoTareas.firstChild);
+        }
     }
 
 })();
