@@ -1,6 +1,7 @@
 (function () {
     obtenerTareas();
     let tareas = [];
+    let filtradas = [];
 
     // Boton para mostrar el modal de Agregar Tarea
     const nuevaTareaBtn = document.querySelector("#agregar-tarea");
@@ -8,6 +9,29 @@
         mostrarFormulario();
     });
 
+    // Filtros de busqueda
+    const filtros = document.querySelectorAll("#filtros input[type='radio']");
+
+    filtros.forEach(radio => {
+        radio.addEventListener('input', filtrarTareas); 
+
+    } );
+
+    function filtrarTareas(e) {
+        const filtro = e.target.value;
+
+        if (filtro !== '') {
+            filtradas = tareas.filter(tarea => tarea.estado === filtro);
+        }else {
+            filtradas = [];
+        }
+
+        mostrarTareas();
+
+
+    }
+
+    
     async function obtenerTareas() {
         try {
             const id = obtenerProyecto();
@@ -23,9 +47,14 @@
     }
 
     function mostrarTareas() {
+        
         limpiarTareas();
 
-        if (tareas.length === 0) {
+
+
+        const arrayTareas = filtradas.length ? filtradas : tareas;
+
+        if (arrayTareas.length === 0) {
             const contenedorTareas = document.querySelector("#listado-tareas");
 
             const textoNoTareas = document.createElement("LI");
@@ -42,7 +71,7 @@
             1: "Completa",
         };
 
-        tareas.forEach((tarea) => {
+        arrayTareas.forEach((tarea) => {
             const contenedorTareas = document.createElement("LI");
             contenedorTareas.dataset.tareaId = tarea._id;
             contenedorTareas.classList.add("tarea");
