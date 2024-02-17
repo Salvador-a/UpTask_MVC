@@ -28,7 +28,7 @@ class LoginController
                  } else {
                     //El usuario existe
                     if( password_verify($_POST['password'], $usuario->password)) {
-                        // iNICIRA LA SESION
+                        // INICIRA LA SESION
                         session_start();
                         $_SESSION['id'] = $usuario->id;
                         $_SESSION['nombre'] = $usuario->nombre;
