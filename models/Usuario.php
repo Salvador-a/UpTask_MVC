@@ -22,6 +22,8 @@ class Usuario extends ActiveRecord {
         $this->email = $args['email'] ?? '';
         $this->password = $args['password'] ?? '';
         $this->password2 = $args['password2'] ?? '';
+        $this->password_actual = $args['password_actual'] ?? '';
+        $this->password_nuevo = $args['password_nuevo'] ?? '';
         $this->token = $args['token'] ?? '';
         $this->confirmado = $args['confirmado'] ?? 0;
     }
@@ -110,14 +112,36 @@ class Usuario extends ActiveRecord {
         return self::$alertas;
     }
 
+    public function nuevo_passwod() : array {
+        if(!$this->password_actual) {
+            self::$alertas['error'] []= "El password actual no puede estar vacio";
+        }
+
+        if(!$this->password_nuevo) {
+            self::$alertas['error'] []= "El password nuevo no puede estar vacio";
+        }
+
+        if(strlen($this->password_nuevo) < 6) {
+            self::$alertas['error'] []= "El password debe tener al menos 6 caracteres";
+        }
+
+        return self::$alertas;
+  
+    }
+
+    // Comprueba si el password es correcto
+    public function comprobar_password() : bool{
+        return password_verify($this->password_actual, $this->password);
+    }
+
 
     // hashear el password
-    public function hashPassword() {
+    public function hashPassword() : void{
         $this->password = password_hash($this->password, PASSWORD_BCRYPT);
     }
 
     //Genera un token
-    public function crearToken() {
+    public function crearToken() : void{
         $this->token = uniqid();
     }
     
